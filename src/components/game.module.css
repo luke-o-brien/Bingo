@@ -1,0 +1,98 @@
+.TitleContainer {
+  width: 100%;
+  background-color: #FF3737;
+  height: 50px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+.icon {
+  height: 30px;
+  width: auto;
+}
+
+.CompanyTitle {
+  font-size: 38px;
+  color: #ffffff;
+  font-family:"Sono", monospace;
+  word-spacing: -5px;
+  font-weight: 300;
+  margin-left: 10px;
+}
+
+.GameTitle {
+  font-size: 72px;
+  color: #FF3737;
+  font-family: "Sono", monospace;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.Tagline {
+  font-size: 24px;
+  color: #FF3737;
+  margin-left: 10px;
+}
+
+.GameGrid {
+  margin-left: 10px;
+  display:  grid;
+  grid-template-columns: 85px 85px 85px 85px;
+  flex-wrap: wrap; 
+  width: 340px;
+}
+
+.GameTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 85px;
+  height: 85px;
+  cursor: pointer;
+  border: 1px rgb(0, 0, 0) solid;
+  padding: 5px;
+  text-align: center;
+}
+
+.GameTileChecked {
+  background-color: #8bff8b8e;
+}
+
+.TileText {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.GameContainer {
+  margin-top: 30px;
+}
+
+.BingoButton {
+  width: 340px;
+  background-color: #FF3737;
+  color: white;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  margin-top: 30px;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.Count {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 10px;
+  text-align: center;
+}
