@@ -16,7 +16,6 @@ export const Game = () => {
   const [count, setCount] = useState(16)
 
   const handleClick = (square) => {
-    console.log(bingoArray);
     setActiveSquare(square);
     if (square.checked) {
       setShowRevertDialog(true);
@@ -50,7 +49,7 @@ export const Game = () => {
           ))}
         </div>
         {count < 16 && count >= 1  && <p className={classes.Count}>You have {count} squares left</p>}
-        {!isButtonVisible && (
+        {isButtonVisible && (
           <button className={classes.BingoButton} onClick={() => setShowSubmitDialog(true)}>I've got Bingo!</button>
         )}
       </div>
@@ -62,8 +61,7 @@ export const Game = () => {
           setIsButtonVisible={setIsButtonVisible}
           setShowDialog={setShowDialog}
           count={count}
-          setCount={setCount
-          }
+          setCount={setCount}
         />
       )}
       {showRevertDialog && (
