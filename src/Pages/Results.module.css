@@ -1,7 +1,7 @@
 .TitleContainer {
   width: 100%;
   background-color: #FF3737;
-  height: 50px;
+  height: 55px;
   padding: 5px;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,6 @@
   padding: 10px 0px 0px 0px;
   width: 100%;
   margin: 0px;
-
 }
 
 
@@ -69,4 +68,9 @@
 .DurationText {
   text-align: left;
   width: 70px;
+  font-weight: 500;
+}
+
+.Player {
+  font-weight: 500;
 }

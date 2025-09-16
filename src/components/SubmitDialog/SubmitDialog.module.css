@@ -1,13 +1,14 @@
 .DialogOverlay {
   position: fixed;
+  padding-top: 50px;
   width: 100%;
   height: 100%;
   z-index: 8;
   left: 0;
   top: 0;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.5);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -20,6 +21,32 @@
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+}
+
+.ConfirmTitle {
+  color:#FF3737;
+  font-size: 32px;
+  font-family: 'sono';
+  width: 100%;
+  text-wrap: wrap;
+  text-align: center;
+}
+
+.Trophy {
+  text-align: center;
+  font-size: 48px;
+}
+
+.TimeTaken {
+  text-align: center;
+  font-size: 16px;
+  color: rgb(32, 32, 32);
+}
+
+.DurationText {
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
 }
 
 .SubmitButton {

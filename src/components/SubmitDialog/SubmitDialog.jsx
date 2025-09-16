@@ -3,6 +3,8 @@ import classes from "./SubmitDialog.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { formatTime } from "../../logic/commonFunctions";
+import { useWindowSize } from "react-use";
+import Confetti from "react-confetti";
 
 export const SubmitDialog = ({ startTime }) => {
   const [displayError, setDisplayError] = useState(false);
@@ -17,7 +19,7 @@ export const SubmitDialog = ({ startTime }) => {
     const durationSeconds = Math.floor(durationMs / 1000);
     setDuration(durationSeconds)
   }, []);
-
+  const { width, height } = useWindowSize();
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.setItem("user", player);
@@ -40,16 +42,25 @@ export const SubmitDialog = ({ startTime }) => {
     <>
       <div className={classes.DialogOverlay}>
         <div className={classes.NameDialog}>
+          <Confetti
+            width={width}
+            height={height}
+            recycle={false}
+            numberOfPieces={2000}
+          />
           <div className={classes.DialogContent}>
-            <div>Congratulation you got Bingo!</div>
-            <p>It took you </p>
-            <p>{formatTime(duration)}</p>
+            <h3 className={classes.ConfirmTitle}>
+              Congratulations you got Bingo!
+            </h3>
+            <p className={classes.Trophy}>🏆</p>
+            <p className={classes.TimeTaken}>in</p>
+            <p className={classes.DurationText}>{formatTime(duration)}</p>
             <form
               className={classes.FormContent}
               onSubmit={(e) => handleSubmit(e)}
             >
               <div className={classes.Field}>
-                <label>Enter name to submit time</label>
+                <label>Enter Name to submit score</label>
                 <input
                   type="text"
                   onChange={(e) => {
@@ -59,13 +70,12 @@ export const SubmitDialog = ({ startTime }) => {
                       setDisplayError(false);
                   }}
                   className={classes.TextInput}
-                  style={{ border: displayError && "1px solid #ad0000" }}
                 />
                 {displayError && (
                   <span className={classes.errorText}>{ErrorMessage}</span>
                 )}
               </div>
-              <button className={classes.SubmitButton}>Submit score</button>
+              <button className={classes.SubmitButton}>Submit and view results</button>
             </form>
           </div>
         </div>

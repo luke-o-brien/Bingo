@@ -55,7 +55,7 @@ export const Results = () => {
                     <p>{idx + 1}.</p>
                   )}
                 </div>
-                <p>
+                <p> 
                   {result.player} {idx === 0 && ""}
                 </p>
               </div>

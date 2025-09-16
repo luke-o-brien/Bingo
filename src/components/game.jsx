@@ -53,7 +53,7 @@ export const Game = () => {
           ))}
         </div>
         {count < 16 && count >= 1 && (
-          <p className={classes.Count}>You have {count} squares left</p>
+          <p className={classes.Count}> {count} squares left</p>
         )}
         {!isButtonVisible && (
           <button
