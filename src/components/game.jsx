@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from "./game.module.css";
 import clsx from "clsx";
 import { Dialog } from "./Dialog/Dialog";
@@ -12,8 +12,13 @@ export const Game = () => {
   const [showRevertDialog, setShowRevertDialog] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [activeSquare, setActiveSquare] = useState({});
-  const [showSubmitDialog, setShowSubmitDialog] = useState(false)
-  const [count, setCount] = useState(16)
+  const [showSubmitDialog, setShowSubmitDialog] = useState(false);
+  const [count, setCount] = useState(16);
+  const [startTime, setStartTime] = useState();
+
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
 
   const handleClick = (square) => {
     setActiveSquare(square);
@@ -23,7 +28,6 @@ export const Game = () => {
       setShowDialog(true);
     }
   };
-
 
   return (
     <>
@@ -48,9 +52,16 @@ export const Game = () => {
             </div>
           ))}
         </div>
-        {count < 16 && count >= 1  && <p className={classes.Count}>You have {count} squares left</p>}
-        {isButtonVisible && (
-          <button className={classes.BingoButton} onClick={() => setShowSubmitDialog(true)}>I've got Bingo!</button>
+        {count < 16 && count >= 1 && (
+          <p className={classes.Count}>You have {count} squares left</p>
+        )}
+        {!isButtonVisible && (
+          <button
+            className={classes.BingoButton}
+            onClick={() => setShowSubmitDialog(true)}
+          >
+            I've got Bingo!
+          </button>
         )}
       </div>
       {showDialog && (
@@ -75,7 +86,13 @@ export const Game = () => {
           setCount={setCount}
         />
       )}
-      {showSubmitDialog && <SubmitDialog setShowSubmitDialog={setShowSubmitDialog} bingoArray={bingoArray} /> }
+      {showSubmitDialog && (
+        <SubmitDialog
+          setShowSubmitDialog={setShowSubmitDialog}
+          bingoArray={bingoArray}
+          startTime={startTime}
+        />
+      )}
     </>
   );
 };

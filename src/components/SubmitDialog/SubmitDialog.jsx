@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from "./SubmitDialog.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
-export const SubmitDialog = () => {
+export const SubmitDialog = ({ startTime }) => {
   const [displayError, setDisplayError] = useState(false);
   const [player, setPlayer] = useState("");
+  const [endTime, setEndTime] = useState();
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    setEndTime(Date.now());
+  }, []);
 
-  const handleSubmit = async(e) => {
-    e.preventDefault()
-    await axios.post("https://bingo-backend-5f720c131b18.herokuapp.com/", {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const durationMs = endTime - startTime;
+    const durationSeconds = Math.floor(durationMs / 1000);
+    console.log(`User has spent ${durationSeconds} seconds.`);
+    localStorage.setItem("user", player);
+    await axios
+      .post(`${import.meta.env.VITE_BACKEND_API_URL}`, {
         player: player,
+        duration: durationSeconds,
       })
       .then((response) => {
         console.log(response.data);
@@ -21,7 +31,7 @@ export const SubmitDialog = () => {
         console.error(err);
         setError(true);
       });
-      navigate('/results')
+    navigate("/results");
   };
 
   return (

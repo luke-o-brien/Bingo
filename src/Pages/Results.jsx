@@ -1,34 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { formatResultsTime } from "../logic/commonFunctions";
+import classes from "./Results.module.css";
 
 export const Results = () => {
+  const [Results, setResults] = useState([]);
+  const [error, setError] = useState(false);
+  const activePlayer = localStorage.getItem("user");
 
-  const [Results, setResults] = useState([])
-  const dummyData = [
-    {
-      _id: "6503f1a2c9b1f2a1d4e8a001",
-      name: "Charlie Smith",
-      createdAt: "2025-09-15T10:10:00.000Z",
-    },
-    {
-      _id: "6503f19fc9b1f2a1d4e8a002",
-      name: "Alice Johnson",
-      createdAt: "2025-09-15T10:20:00.000Z",
-    },
-    {
-      _id: "6503f19bc9b1f2a1d4e8a003",
-      name: "Bob Lee",
-      createdAt: "2025-09-15T10:26:00.000Z",
-    },
-  ];
-
-  
-useEffect(() => {
-    axios.get('https://bingo-backend-5f720c131b18.herokuapp.com/')
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_API_URL}`)
       .then((response) => {
-        console.log(response)
-        console.log(response.data)
         setResults(response.data);
       })
       .catch((err) => {
@@ -37,21 +20,47 @@ useEffect(() => {
       });
   }, []);
 
-
   return (
     <>
       <div>
-        <h1>Results</h1>
-        <ol>
-          {dummyData.map((data) => (
-            <li key={data._id}>
-              <p>{data.name}</p>
-              <p>
-                {new Date(data.createdAt).toLocaleTimeString("en-GB", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                })}
+        <div className={classes.TitleContainer}>
+          <h1 className={classes.CompanyTitle}>Streets Heaver</h1>
+        </div>
+        <h3 className={classes.GameTitle}>Bingo!</h3>
+        <h1 className={classes.ResultTitle}> Results</h1>
+        <ol className={classes.ResultsList}>
+          {Results.map((result, idx) => (
+            <li
+              key={result._id}
+              className={classes.ResultRow}
+              style={{
+                color: activePlayer === result.player && "#FFFFFF",
+                backgroundColor:
+                  activePlayer === result.player
+                    ? "#FF3737"
+                    : idx % 2 === 0
+                    ? "#fafafa"
+                    : "#ffffff",
+              }}
+            >
+              <div className={classes.RowLeft}>
+                <div className={classes.Position}>
+                  {idx === 0 ? (
+                    <p className={classes.PositionEmoji}>🥇</p>
+                  ) : idx === 1 ? (
+                    <p className={classes.PositionEmoji}>🥈</p>
+                  ) : idx === 2 ? (
+                    <div className={classes.PositionEmoji}>🥉</div>
+                  ) : (
+                    <p>{idx + 1}</p>
+                  )}
+                </div>
+                <p>
+                  {result.player} {idx === 0 && ""}
+                </p>
+              </div>
+              <p className={classes.DurationText}>
+                {formatResultsTime(result.duration)}
               </p>
             </li>
           ))}
