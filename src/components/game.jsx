@@ -55,7 +55,7 @@ export const Game = () => {
         {count < 16 && count >= 1 && (
           <p className={classes.Count}>You have {count} squares left</p>
         )}
-        {isButtonVisible && (
+        {!isButtonVisible && (
           <button
             className={classes.BingoButton}
             onClick={() => setShowSubmitDialog(true)}

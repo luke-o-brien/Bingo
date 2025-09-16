@@ -2,27 +2,29 @@ import { useState, useEffect } from "react";
 import classes from "./SubmitDialog.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { formatTime } from "../../logic/commonFunctions";
 
 export const SubmitDialog = ({ startTime }) => {
   const [displayError, setDisplayError] = useState(false);
   const [player, setPlayer] = useState("");
   const [endTime, setEndTime] = useState();
+  const [duration, setDuration] = useState()
   const navigate = useNavigate();
 
   useEffect(() => {
-    setEndTime(Date.now());
+    const endTime = Date.now();
+    const durationMs = endTime - startTime;
+    const durationSeconds = Math.floor(durationMs / 1000);
+    setDuration(durationSeconds)
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const durationMs = endTime - startTime;
-    const durationSeconds = Math.floor(durationMs / 1000);
-    console.log(`User has spent ${durationSeconds} seconds.`);
     localStorage.setItem("user", player);
     await axios
       .post(`${import.meta.env.VITE_BACKEND_API_URL}`, {
         player: player,
-        duration: durationSeconds,
+        duration: duration,
       })
       .then((response) => {
         console.log(response.data);
@@ -40,6 +42,8 @@ export const SubmitDialog = ({ startTime }) => {
         <div className={classes.NameDialog}>
           <div className={classes.DialogContent}>
             <div>Congratulation you got Bingo!</div>
+            <p>It took you </p>
+            <p>{formatTime(duration)}</p>
             <form
               className={classes.FormContent}
               onSubmit={(e) => handleSubmit(e)}

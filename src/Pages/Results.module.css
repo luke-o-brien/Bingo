@@ -51,7 +51,9 @@
 .RowLeft {
   display: flex;
   flex-direction: row;
-  gap: 16px
+  justify-content: center;
+  align-items: center;
+  gap: 12px
 }
 
 .Position {

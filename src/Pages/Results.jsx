@@ -52,7 +52,7 @@ export const Results = () => {
                   ) : idx === 2 ? (
                     <div className={classes.PositionEmoji}>🥉</div>
                   ) : (
-                    <p>{idx + 1}</p>
+                    <p>{idx + 1}.</p>
                   )}
                 </div>
                 <p>
