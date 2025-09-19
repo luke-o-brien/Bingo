@@ -18,7 +18,6 @@ export const Dialog = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (bingoArray.some(item => item.person !== '' && item.person === person)) {
-      console.log('hit')
       setDisplayError(true);
       setErrorMessage('Cannot have the same person for 2 squares')
     }

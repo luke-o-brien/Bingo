@@ -9,8 +9,9 @@ import Confetti from "react-confetti";
 export const SubmitDialog = ({ startTime }) => {
   const [displayError, setDisplayError] = useState(false);
   const [player, setPlayer] = useState("");
-  const [endTime, setEndTime] = useState();
   const [duration, setDuration] = useState()
+  const [errorMessage, setErrorMessage] = useState('')
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,23 +20,32 @@ export const SubmitDialog = ({ startTime }) => {
     const durationSeconds = Math.floor(durationMs / 1000);
     setDuration(durationSeconds)
   }, []);
+
   const { width, height } = useWindowSize();
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("user", player);
-    await axios
-      .post(`${import.meta.env.VITE_BACKEND_API_URL}`, {
-        player: player,
-        duration: duration,
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(true);
-      });
-    navigate("/results");
+    if (player === "") {
+      setDisplayError(true)
+      setErrorMessage('Please enter a name to submit time')
+    } else {
+      localStorage.setItem("user", player);
+      await axios
+        .post(`${import.meta.env.VITE_BACKEND_API_URL}`, {
+          player: player,
+          duration: duration,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.error(err);
+          setDisplayError(true);
+          setErrorMessage(`${err.message}`)
+        });
+      navigate("/results");
+    }
   };
 
   return (
@@ -60,7 +70,7 @@ export const SubmitDialog = ({ startTime }) => {
               onSubmit={(e) => handleSubmit(e)}
             >
               <div className={classes.Field}>
-                <label>Enter Name to submit score</label>
+                <label>Enter Name to submit time</label>
                 <input
                   type="text"
                   onChange={(e) => {
@@ -72,7 +82,7 @@ export const SubmitDialog = ({ startTime }) => {
                   className={classes.TextInput}
                 />
                 {displayError && (
-                  <span className={classes.errorText}>{ErrorMessage}</span>
+                  <span className={classes.errorText}>{errorMessage}</span>
                 )}
               </div>
               <button className={classes.SubmitButton}>Submit and view results</button>
