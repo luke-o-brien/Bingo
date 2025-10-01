@@ -32,7 +32,7 @@ export const Game = () => {
   return (
     <>
       <div className={classes.TitleContainer}>
-        <h1 className={classes.CompanyTitle}>Streets Heaver</h1>
+        <h1 className={classes.CompanyTitle}>General Assembly</h1>
       </div>
       <h3 className={classes.GameTitle}>Bingo!</h3>
       <div className={classes.GameContainer}>
