@@ -34,7 +34,7 @@ export const Game = () => {
       <div className={classes.TitleContainer}>
         <h1 className={classes.CompanyTitle}>General assembly</h1>
       </div>
-      <h3 className={classes.GameTitle}>Snake</h3>
+      <h3 className={classes.GameTitle}>Snap!</h3>
       <div className={classes.GameContainer}>
         <p className={classes.Tagline}>Find someone who...</p>
         <div className={classes.GameGrid}>
