@@ -5,6 +5,7 @@ import { Dialog } from "./Dialog/Dialog";
 import { RevertDialog } from "./RevertDialog/RevertDialog";
 import { bingoSquares } from "../Data/BingoData";
 import { SubmitDialog } from "./SubmitDialog/SubmitDialog";
+import { Link } from "react-router";
 
 export const Game = () => {
   const [bingoArray, setBingoArray] = useState(bingoSquares);
@@ -44,7 +45,7 @@ export const Game = () => {
               onClick={() => handleClick(square)}
               className={clsx(
                 classes.GameTile,
-                square.checked && classes.GameTileChecked
+                square.checked && classes.GameTileChecked,
               )}
             >
               <p className={classes.TileText}>{square.title}</p>
@@ -52,6 +53,7 @@ export const Game = () => {
             </div>
           ))}
         </div>
+
         {count < 16 && count >= 1 && (
           <p className={classes.Count}> {count} squares left</p>
         )}
@@ -93,6 +95,9 @@ export const Game = () => {
           startTime={startTime}
         />
       )}
+      <Link to="results" style={{ display: 'flex', width: "100%", textAlign: "center", justifyContent: 'center', marginTop:'10px'}}>
+        <div>View Results</div>
+      </Link>
     </>
   );
 };
